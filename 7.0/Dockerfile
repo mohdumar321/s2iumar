@@ -20,7 +20,7 @@ RUN curl 'https://setup.ius.io/' -o setup-ius.sh && \
     bash setup-ius.sh
 RUN rm setup-ius.sh
 RUN yum install -y --setopt=tsflags=nodocs --enablerepo=centosplus \
-    php70u-fpm-nginx \
+    php70u-fpm-nginx \   
     php70u-cli \
     php70u-gd \
     php70u-imap \
