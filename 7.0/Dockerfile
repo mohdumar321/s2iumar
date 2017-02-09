@@ -30,7 +30,10 @@ RUN yum install -y --setopt=tsflags=nodocs --enablerepo=centosplus \
     php70u-opcache \
     php70u-pdo \
     php70u-pdo \
-    php70u-xml
+    php70u-xml \
+     php-pear \
+    php-pecl-imagick \
+  php-pecl-apcu
 #RUN rpm -V nginx php70w-cli php70w-fpm php70w-opcache
 RUN yum clean all -y
 
