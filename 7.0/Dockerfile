@@ -31,9 +31,10 @@ RUN yum install -y --setopt=tsflags=nodocs --enablerepo=centosplus \
     php70u-pdo \
     php70u-pdo \
     php70u-xml \
-     php-pear \
-    php-pecl-imagick \
-  php-pecl-apcu
+   php70w-pear	\
+php70w-pecl-apcu \	
+php70w-pecl-imagick \	
+php70w-pecl-redis 
 #RUN rpm -V nginx php70w-cli php70w-fpm php70w-opcache
 RUN yum clean all -y
 
@@ -60,7 +61,7 @@ RUN ln -s /usr/local/instantclient_12_1 /usr/local/instantclient
 RUN ln -s /usr/local/instantclient/libclntsh.so.12.1 /usr/local/instantclient/libclntsh.so
 RUN ln -s /usr/local/instantclient/sqlplus /usr/bin/sqlplus
 RUN echo 'instantclient,/usr/local/instantclient' | pecl install oci8
-RUN echo "extension=oci8.so" > /etc/php5/apache2/conf.d/30-oci8.ini
+RUN echo "extension=oci8.so" > /opt/app-root/etc/conf.d/30-oci8.ini
 
 RUN echo "<?php echo phpinfo(); ?>" > /app/index.php
 
