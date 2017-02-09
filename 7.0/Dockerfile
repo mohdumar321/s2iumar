@@ -44,14 +44,15 @@ COPY ./contrib/ /opt/app-root
 RUN cp /opt/app-root/etc/conf.d/php-fpm/pool.conf /etc/php-fpm.d/www.conf
 RUN cp /opt/app-root/etc/conf.d/php-fpm/fpm.conf /etc/php-fpm.conf
 
-# Oracle instantclient
-ADD instantclient-basic-linux.x64-12.1.0.2.0.zip /contrib/
-ADD instantclient-sdk-linux.x64-12.1.0.2.0.zip /contrib/
-ADD instantclient-sqlplus-linux.x64-12.1.0.2.0.zip /contrib/
 
-RUN unzip /opt/app-root/instantclient-basic-linux.x64-12.1.0.2.0.zip -d /usr/local/
-RUN unzip /opt/app-root/instantclient-sdk-linux.x64-12.1.0.2.0.zip -d /usr/local/
-RUN unzip /opt/app-root/instantclient-sqlplus-linux.x64-12.1.0.2.0.zip -d /usr/local/
+# Oracle instantclient
+ADD instantclient-basic-linux.x64-12.1.0.2.0.zip /tmp/
+ADD instantclient-sdk-linux.x64-12.1.0.2.0.zip /tmp/
+ADD instantclient-sqlplus-linux.x64-12.1.0.2.0.zip /tmp/
+
+RUN unzip /tmp/instantclient-basic-linux.x64-12.1.0.2.0.zip -d /usr/local/
+RUN unzip /tmp/instantclient-sdk-linux.x64-12.1.0.2.0.zip -d /usr/local/
+RUN unzip /tmp/instantclient-sqlplus-linux.x64-12.1.0.2.0.zip -d /usr/local/
 RUN ln -s /usr/local/instantclient_12_1 /usr/local/instantclient
 RUN ln -s /usr/local/instantclient/libclntsh.so.12.1 /usr/local/instantclient/libclntsh.so
 RUN ln -s /usr/local/instantclient/sqlplus /usr/bin/sqlplus
@@ -59,6 +60,7 @@ RUN echo 'instantclient,/usr/local/instantclient' | pecl install oci8
 RUN echo "extension=oci8.so" > /etc/php5/apache2/conf.d/30-oci8.ini
 
 RUN echo "<?php echo phpinfo(); ?>" > /app/index.php
+
 # In order to drop the root user, we have to make some directories world
 # writeable as OpenShift default security model is to run the container under
 # random UID.
